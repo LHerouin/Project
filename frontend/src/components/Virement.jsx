@@ -32,7 +32,7 @@ class Virement extends Component {
     if(this.state.Destinataire.localeCompare("")===0){
         this.setState({value_res:"Merci de remplir le champ destinataire"});
     }
-    else if(this.state.Change.localeCompare("")===0){
+    else if(this.state.Montant===0){
         this.setState({value_res:"Merci de remplir le champ montant"});
     }
     else{
@@ -45,13 +45,13 @@ class Virement extends Component {
             this.setState({value_res:""});
             const { drizzle, drizzleState } = this.props;
             const contract = drizzle.contracts.Project;
-            const stackId = contract.methods["VirementETH"].cacheSend(this.state.Destinataire,this.state.Change*1000000000000000000);
+            const stackId = contract.methods["VirementETH"].cacheSend(this.state.Destinataire,this.state.Montant*1000000000000000000);
             }
             else{
             this.setState({value_res:""});
             const { drizzle, drizzleState } = this.props;
             const contract = drizzle.contracts.Project;
-            const stackId2 = contract.methods["VirementPT"].cacheSend(this.state.Destinataire,this.state.Change/1.5);
+            const stackId2 = contract.methods["VirementPT"].cacheSend(this.state.Destinataire,this.state.Montant/1.5);
             }
         
 
@@ -84,7 +84,7 @@ class Virement extends Component {
                   step="0.01"
                   name="Montant"
                   placeholder="Montant"
-                  value={this.state.Change}
+                  value={this.state.Montant}
                   onChange={this.onChange}
                 />
                 <br/>
